@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/home/bikram/projects/gcm/app/build/intermediates/res/merged/debug/drawable-hdpi-v11/ic_stat_ic_notification.png",
+        "source": "/home/bikram/projects/gcm/app/src/main/res/drawable-hdpi-v11/ic_stat_ic_notification.png"
+    },
+    {
+        "merged": "/home/bikram/projects/gcm/app/build/intermediates/res/merged/debug/drawable-hdpi-v11/olenepal_logo.png",
+        "source": "/home/bikram/projects/gcm/app/src/main/res/drawable-hdpi-v11/olenepal_logo.png"
+    }
+]

@@ -1,0 +1,1 @@
+CHANGED,/home/bikram/projects/gcm/app/build/intermediates/transforms/instantRun/debug/folders/1/5/main/gcm/play/android/samples/com/gcmquickstart/RegistrationIntentService.class
