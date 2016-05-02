@@ -28,13 +28,22 @@ import android.widget.Toast;
 
 import com.google.android.gms.gcm.GcmPubSub;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.google.android.gms.gcm.Task;
 import com.google.android.gms.iid.InstanceID;
+import com.squareup.okhttp.Response;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.ByteArrayBuffer;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -49,16 +58,25 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.GsonConverterFactory;
+import retrofit.Retrofit;
+
 public class RegistrationIntentService extends IntentService {
+
+    private PushApi APIInterface;
 
     private static final String TAG = "RegIntentService";
     private static final String[] TOPICS = {"global"};
     private static final String SERVER_URL = "http://www.pustakalaya.org/gcm/register_regid.php";
     private Context context;
+
 
 
     public RegistrationIntentService() {
@@ -81,8 +99,11 @@ public class RegistrationIntentService extends IntentService {
             String token = instanceID.getToken(getString(R.string.gcm_defaultSenderId),
                     GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
             // [END get_token]
-            Log.i(TAG, "GCM Registration Token: " + token);
 
+
+
+            Log.i(TAG, "GCM Registration Token: " + token);
+//              toasting(token);
 
             // TODO: Implement this method to send any registration to your app's servers.
             sendRegistrationToServer(token);
@@ -116,61 +137,55 @@ public class RegistrationIntentService extends IntentService {
      * @param token The new token.
      */
     public void sendRegistrationToServer(String token) {
-        try {
 
-            String data = URLEncoder.encode("name", "UTF-8")
-                    + "=" + URLEncoder.encode("test", "UTF-8");
-
-            data += "&" + URLEncoder.encode("email", "UTF-8") + "="
-                    + URLEncoder.encode("test", "UTF-8");
-
-            data += "&" + URLEncoder.encode("regId", "UTF-8")
-                    + "=" + URLEncoder.encode("ID", "UTF-8");
-            toasting(data);
-            String text = " ";
-            BufferedReader reader=null;
-
-            try {
-
-                // Defined URL  where to send data
-                URL url = new URL(SERVER_URL);
-
-                // Send POST data request
-
-                URLConnection conn = url.openConnection();
-                conn.setDoOutput(true);
-                OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-                wr.write(data);
-                wr.flush();
-                reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                StringBuilder sb = new StringBuilder();
-                String line = null;
-                while((line = reader.readLine()) != null)
-                {
-                    // Append server response in string
-                    sb.append(line + "\n");
-                }
+        try{
 
 
-                text = sb.toString();
-            }catch (Exception ex){
 
+        String data = URLEncoder.encode("name", "UTF-8")
+                + "=" + URLEncoder.encode("12", "UTF-8");
+
+        data += "&" + URLEncoder.encode("email", "UTF-8") + "="
+                + URLEncoder.encode("12", "UTF-8");
+
+        data += "&" + URLEncoder.encode("regId", "UTF-8")
+                + "=" + URLEncoder.encode(token, "UTF-8");
+
+
+
+
+
+        String text = "";
+        BufferedReader reader=null;
+
+            URL url = new URL("http://www.pustakalaya.org/gcm/httppost.php");
+
+            // Send POST data request
+
+            URLConnection conn = url.openConnection();
+            conn.setDoOutput(true);
+            OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+            wr.write(data);
+            wr.flush();
+            reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            StringBuilder sb = new StringBuilder();
+            String line = null;
+            while((line = reader.readLine()) != null)
+            {
+                // Append server response in string
+                sb.append(line + "\n");
             }
 
-                // Get the server response
+
+            Log.d("http",sb.toString());
+
+        }catch (Exception e){
 
 
 
-                // Read Server Response
-
-              Log.d("text",text);
-            reader.close();
-
-
-
-        }catch (Exception ex){
-            Log.d("URL","error");
         }
+
+
 
 
     }

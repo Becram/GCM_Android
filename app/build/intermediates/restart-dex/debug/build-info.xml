@@ -4,42 +4,26 @@
     api-level="23"
     density="xxhdpi"
     format="7"
-    timestamp="28173325002133"
-    verifier="COMPATIBLE" >
+    timestamp="29206889419687" >
 
     <task
         name="javac"
-        duration="874" />
+        duration="0" />
     <task
         name="instant-run-dex"
-        duration="3541" />
+        duration="0" />
     <task
         name="instant-run-transform"
-        duration="219" />
+        duration="0" />
     <task
         name="verifier"
-        duration="17" />
+        duration="0" />
 
-    <artifact
-        location="/home/bikram/projects/gcm/app/build/intermediates/reload-dex/debug/classes.dex"
-        type="RELOAD_DEX" />
-
-    <build timestamp="27265449568038" >
+    <build timestamp="26968419506258" >
         <artifact
             location="/home/bikram/projects/gcm/app/build/outputs/apk/app-debug.apk"
             type="MAIN" />
     </build>
-    <build timestamp="27857056453186" >
-        <artifact
-            location="/home/bikram/projects/gcm/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_8/classes.dex"
-            type="DEX" />
-    </build>
-    <build
-        timestamp="28173325002133"
-        verifier="COMPATIBLE" >
-        <artifact
-            location="/home/bikram/projects/gcm/app/build/intermediates/reload-dex/debug/classes.dex"
-            type="RELOAD_DEX" />
-    </build>
+    <build timestamp="29206889419687" />
 
 </instant-run>
